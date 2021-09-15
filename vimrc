@@ -12,7 +12,7 @@ endif
 
 let g:vim_bootstrap_langs = "html,javascript,python,typescript"
 let g:vim_bootstrap_editor = "neovim"				" nvim or vim
-let g:vim_bootstrap_theme = "molokai, onedark, dracula"
+let g:vim_bootstrap_theme = "molokai, onedark, dracula, codedark"
 let g:vim_bootstrap_frams = ""
 
 if !filereadable(vimplug_exists)
@@ -52,6 +52,7 @@ Plug 'tpope/vim-rhubarb' " required by fugitive to :Gbrowse
 Plug 'tomasr/molokai'
 Plug 'joshdick/onedark.vim'
 Plug 'dracula/vim', { 'as': 'dracula' } 
+Plug 'tomasiser/vim-code-dark'
 
 
 if isdirectory('/usr/local/opt/fzf')
@@ -76,6 +77,9 @@ Plug 'honza/vim-snippets'
 
 "" Syntax highlighting
 Plug 'sheerun/vim-polyglot'
+
+"" vim-tmux-navigator
+Plug 'christoomey/vim-tmux-navigator'
 
 "*****************************************************************************
 "" Custom bundles
@@ -172,11 +176,18 @@ let g:session_command_aliases = 1
 "*****************************************************************************
 syntax on
 set ruler
-set number relativenumber
+set number
+set relativenumber
 
 let no_buffers_menu=1
-colorscheme onedark
+colorscheme molokai
 set termguicolors
+
+"" Dracula pro theme
+"packadd! dracula_pro
+"syntax enable
+"let g:dracula_colorterm = 0
+"colorscheme dracula_pro
 
 set mousemodel=popup
 set t_Co=256
@@ -215,7 +226,7 @@ endif
 
 
 "" Disable the blinking cursor.
-set gcr=a:blinkon0
+"set gcr=a:blinkon0
 
 set scrolloff=3
 
@@ -243,7 +254,7 @@ if exists("*fugitive#statusline")
 endif
 
 " vim-airline
-let g:airline_theme = 'onedark'
+let g:airline_theme = 'molokai'
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
@@ -403,10 +414,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 let g:UltiSnipsEditSplit="vertical"
 
 " ale
-let g:ale_linters = {
-     \   'python': ['flake8', 'pylint'],
-     \   'javascript': ['eslint'],
-     \}
+let g:ale_linters = {}
 let g:ale_fixers = {
      \   'python': ['yapf', 'black'],
      \}
@@ -450,10 +458,10 @@ noremap <leader>c :bd<CR>
 nnoremap <silent> <leader><space> :noh<cr>
 
 "" Switching windows
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
-noremap <C-h> <C-w>h
+"noremap <C-j> <C-w>j
+"noremap <C-k> <C-w>k
+"noremap <C-l> <C-w>l
+"noremap <C-h> <C-w>h
 
 "" Vmap for maintain Visual Mode after shifting > and <
 vmap < <gv
@@ -569,3 +577,12 @@ let g:airline_powerline_fonts = 1
 "   let g:airline_symbols.readonly = ''
 "   let g:airline_symbols.linenr = ''
 " endif
+
+" TMUX
+let g:tmux_navigator_no_mappings = 1
+nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
+" Disable tmux navigator when zooming the Vim pane
+let g:tmux_navigator_disable_when_zoomed = 1
