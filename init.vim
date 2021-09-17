@@ -10,7 +10,7 @@ Plug 'KKPMW/vim-sendtowindow'        " send commands to REPL
 Plug 'yuttie/comfortable-motion.vim' " scrolling 'C-d' or 'C-u'
 Plug 'ncm2/ncm2'                     " completion [dep]: nvim-0.2.2, nvim-yarp, python3
 Plug 'roxma/nvim-yarp'               " remote plugin framework required for ncm2
-Plug 'ncm2/ncm2-bufword'            " complete words in buffer
+Plug 'ncm2/ncm2-bufword'             " complete words in buffer
 Plug 'ncm2/ncm2-path'                " complete paths
 Plug 'ncm2/ncm2-jedi'                " Python completion
 Plug 'gaalcaras/ncm-R'               " R completion [dep]: ncm2, Nvim-R
