@@ -1,5 +1,5 @@
 " Plugins
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 Plug 'rakr/vim-one'                  " vim-one color theme
 Plug 'scrooloose/nerdtree'           " side bar file tree
 Plug 'itchyny/lightline.vim'         " minmal status bar
@@ -101,7 +101,7 @@ let g:lightline = {
 " ncm2 
 autocmd BufEnter * call ncm2#enable_for_buffer()      " enable ncm2 for all buffers
 set completeopt=noinsert,menuone,noselect             " IMPORTANT: :help Ncm2PopupOpen for more information
-let g:python3_host_prog='/usr/bin/python3'            " ncm2-jedi
+let g:python3_host_prog='/Library/Frameworks/Python.framework/Versions/3.9/bin/python3'         " ncm2-jedi
 
 
 " gitgutter
