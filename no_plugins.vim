@@ -1,3 +1,12 @@
+" PLUGINS:
+call plug#begin('~/.vim/plugged')
+
+call plug#end()
+
+"========================================================"
+"========================================================"
+"========================================================"
+
 "       HOW TO DO 90% OF WHAT PLUGINS DO (WITH JUST VIM)
 
 " FEATURES TO COVER:
@@ -16,7 +25,7 @@ set nocompatible
 
 " enable syntax and plugins (for netrw)
 syntax enable
-filetype plugin on
+filetype plugin indent on
 
 
 " FINDING FILES:
@@ -113,19 +122,17 @@ set makeprg=bundle\ exec\ rspec\ -f\ QuickfixFormatter
 " MY CONFIG:                                             "
 "========================================================"
 
-inoremap jj <Esc>
-inoremap jk <Esc>
-inoremap kj <Esc>
-
-onoremap L $
-onoremap H ^
-
 set laststatus=2
+set backspace=indent,eol,start
+set showcmd
+set showmatch
+set history=500
 set number
 set relativenumber
 set hidden
 set hlsearch
 set ignorecase
+set incsearch
 set ruler
 set noswapfile
 set nobackup
@@ -136,9 +143,15 @@ set smarttab
 set shiftwidth=2
 set tabstop=2
 set scrolloff=8
+set sidescrolloff=8
+set encoding=utf-8
 set fileencoding=utf-8
 set smartcase
 set smartindent
+
+"" built-in completion
+set omnifunc=syntaxcomplete#Complete
+set completeopt=noinsert,menuone,noselect
 
 "" enable folding 
 set foldmethod=indent 
@@ -146,6 +159,14 @@ set foldlevel=99
 
 "" window Splits
 set splitbelow splitright
+
+"" key mappings
+inoremap jj <Esc>
+inoremap jk <Esc>
+inoremap kj <Esc>
+
+onoremap L $
+onoremap H ^
 
 "" remap to indent
 vnoremap > >gv
@@ -164,8 +185,8 @@ noremap <silent> <C-Down> :resize +3<CR>
 map <leader>th <C-w>t<C-w>H
 map <leader>tk <C-w>t<C-w>K
 "" start terminals for R and Python sessions '\tr' or '\tp'
-map <leader>ip :ter<CR>iipython<CR>
-map <leader>tr :ter<CR>iR<CR>
+map <leader>ip :ter<CR>ipython<CR>
+map <leader>tr :ter<CR>R<CR>
 map <leader>tp :ter<CR>python3<CR>
 map <leader>td :ter<CR>sqlite3<CR>
 map <leader>tj :ter<CR>julia<CR>
@@ -174,10 +195,10 @@ map <leader>ts :ter<CR>scala<CR>
 nnoremap <silent> <S-l> :bn<CR>
 nnoremap <silent> <S-h> :bp<CR>
 "" close buffer
-nnoremap <silent> <space>c :bd<CR>
+nnoremap <silent> <space>c :bw<CR>
 "" clean search (highlight)
 nnoremap <silent> <space>h :noh<CR>
-"" python alias (,p runs python on script. ,t times python script)
+"" run script
 nmap ,p :w<CR>:!python3 %<CR>
 nmap ,t :w<CR>:!time python3 %<CR>
 nmap ,cr :w<CR>:!cargo run<CR>
