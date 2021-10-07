@@ -101,7 +101,7 @@ let g:lightline = {
 " ncm2 
 autocmd BufEnter * call ncm2#enable_for_buffer()      " enable ncm2 for all buffers
 set completeopt=noinsert,menuone,noselect             " IMPORTANT: :help Ncm2PopupOpen for more information
-let g:python3_host_prog='/Library/Frameworks/Python.framework/Versions/3.9/bin/python3'         " ncm2-jedi
+let g:python3_host_prog='/Library/Frameworks/Python.framework/Versions/3.10/bin/python3'         " ncm2-jedi
 
 
 " gitgutter
