@@ -12,18 +12,18 @@ endif
 "*****************************************************************************
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'joshdick/onedark.vim'
-"Plug 'tomasiser/vim-code-dark'
-"Plug 'dracula/vim', {'as': 'dracula'}
-"Plug 'tomasr/molokai'
+Plug 'rafi/awesome-vim-colorschemes'
+Plug 'LunarVim/onedarker.nvim'
+Plug 'tomasiser/vim-code-dark'
+Plug 'dracula/vim', {'as': 'dracula'}
 
-"Plug 'itchyny/lightline.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 Plug 'preservim/nerdtree'
-"Plug 'ryanoasis/vim-devicons'
-"Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'ryanoasis/vim-devicons'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -31,37 +31,32 @@ Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-Plug 'tpope/vim-commentary'
-Plug 'sheerun/vim-polyglot'
-
-"Plug 'SirVer/ultisnips'
-"Plug 'honza/vim-snippets'
-
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"Plug 'dense-analysis/ale'
-"Plug 'davidhalter/jedi-vim'
+Plug 'dense-analysis/ale'
 
-"Plug 'mhinz/vim-startify'
-"Plug 'tmhedberg/SimpylFold'
-Plug 'easymotion/vim-easymotion'
-"Plug 'justinmk/vim-sneak'
+Plug 'sheerun/vim-polyglot'
+Plug 'HerringtonDarkholme/yats.vim'                 " TS syntax
+
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-"Plug 'jiangmiao/auto-pairs'
-"Plug 'terryma/vim-multiple-cursors'
-"Plug 'KKPMW/vim-sendtowindow'                       " <space>hjkl
-"Plug 'jpalardy/vim-slime'                           " <C-c><C-c>
+Plug 'easymotion/vim-easymotion'
+Plug 'preservim/tagbar'
+Plug 'puremourning/vimspector'                      " Debugging
+Plug 'terryma/vim-multiple-cursors'
 Plug 'christoomey/vim-tmux-navigator'               " <C-hjkl>
 
 call plug#end()
 "*****************************************************************************
 "*****************************************************************************
 
-let mapleader = ','
+let g:mapleader = ','
 
-nnoremap <silent> <leader><C-f> :edit ~/.config/nvim/init.vim<CR>
-inoremap jj <Esc>
+filetype plugin indent on
+
 inoremap jk <Esc>
-inoremap kj <Esc>
 onoremap L $
 onoremap H ^
 
@@ -75,27 +70,29 @@ set ruler
 set noswapfile
 set nobackup
 set nowritebackup
-set clipboard=unnamed,unnamedplus
+set clipboard+=unnamedplus
 set expandtab
 set smarttab
-set shiftwidth=2
 set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set autoindent
+set smartindent
+set smartcase
 set scrolloff=8
 set encoding=utf-8
 set fileencoding=utf-8
-set smartcase
-set smartindent
-set signcolumn=yes
+set signcolumn=auto
 set completeopt=menuone,noselect
 
 "" theme
-syntax enable
-colorscheme onedark
+set background=dark
 set termguicolors
+syntax enable
+colorscheme dracula_pro
 
-" enable folding 
-set foldmethod=indent 
-set foldlevel=99
+packadd! dracula_pro
+let g:dracula_colorterm = 0
 
 "" window Splits
 set splitbelow splitright
@@ -136,9 +133,6 @@ nmap ,p :w<CR>:!python3 %<CR>
 nmap ,t :w<CR>:!time python3 %<CR>
 nmap ,n :w<CR>:!node %<CR>
 
-"" terminal emulation
-"nnoremap <silent> ,sh :terminal<CR>
-
 "" Easymotion
 "" s{char}{char} to move to {char}{char} over windows
 nmap <space>f <Plug>(easymotion-overwin-f)
@@ -148,97 +142,40 @@ nmap <space>l <Plug>(easymotion-overwin-line)
 map / <Plug>(easymotion-sn)
 
 "" SQLite should use SQL highlights. See :help ft-sql for more info
-autocmd BufNewFile,BufRead *.sqlite set syntax=sql 
-
-"" lightline
-"let g:lightline = {
-"      \ 'colorscheme': 'onedark',
-"      \ 'active': {
-"      \   'left': [ [ 'mode', 'paste' ],
-"      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-"      \ },
-"      \ 'component_function': {
-"      \   'gitbranch': 'FugitiveHead'
-"      \ },
-"      \ }
+autocmd BufNewFile,BufRead *.sqlite set syntax=sql
 
 "" airline_theme
-let g:airline_theme='onedark'
+"let g:airline_theme='codedark'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-"let g:airline#extensions#tabline#left_sep = ' '
-"let g:airline#extensions#tabline#left_alt_sep = '|'
-"let g:airline#extensions#tabline#formatter = 'default'
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#ale#enabled = 1
 
 "" nerdtree
 nnoremap <silent> <leader>e :NERDTreeToggle<CR>
 let NERDTreeIgnore = ['\.pyc$']
 
-"" startify
-"let g:startify_lists = [
-"      \ { 'type': 'sessions',  'header': ['   Sessions']       },
-"      \ { 'type': 'files',     'header': ['   Recent']            },
-"      \ { 'type': 'commands',  'header': ['   Commands']       },
-"      \ ]
-
-"" fzf.vim
-"" Customize fzf colors to match your color scheme
-"let g:fzf_colors =
-"\ { 'fg':      ['fg', 'Normal'],
-"  \ 'bg':      ['bg', 'Normal'],
-"  \ 'hl':      ['fg', 'Comment'],
-"  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-"  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-"  \ 'hl+':     ['fg', 'Statement'],
-"  \ 'info':    ['fg', 'PreProc'],
-"  \ 'border':  ['fg', 'Ignore'],
-"  \ 'prompt':  ['fg', 'Conditional'],
-"  \ 'pointer': ['fg', 'Exception'],
-"  \ 'marker':  ['fg', 'Keyword'],
-"  \ 'spinner': ['fg', 'Label'],
-"  \ 'header':  ['fg', 'Comment'] }
+"" tagbar
+nmap <leader>ta :TagbarToggle<CR>
+let g:tagbar_ctags_bin = "/opt/homebrew/bin/ctags"
 
 "" ultisnips
-"let g:UltiSnipsExpandTrigger="<tab>"
-"let g:UltiSnipsJumpForwardTrigger="<c-b>"
-"let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-"let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsEditSplit="vertical"
 
 "" Multi select
-"let g:multi_cursor_next_key='<C-n>'
-"let g:multi_cursor_prev_key='<C-p>'
-"let g:multi_cursor_skip_key='<C-x>'
-
-"" ale linting
-"let g:ale_sign_column_always=1
-"let g:ale_lint_on_enter=1
-"let g:ale_lint_on_text_changed='always'
-"let g:ale_echo_msg_error_str='E'
-"let g:ale_echo_msg_warning_str='W'
-"let g:ale_echo_msg_format='[%linter%] %s [%severity%]: [%...code...%]'
-"let g:ale_linters={'python': ['flake8'], 'r': ['lintr']}
-"let g:ale_fixers={'python': ['black']}
-"let g:ale_fix_on_save=1
-
-"" jedi-vim
-"let g:jedi#popup_on_dot = 0
-"let g:jedi#goto_assignments_command = ",g"
-"let g:jedi#goto_definitions_command = ",d"
-"let g:jedi#documentation_command = "K"
-"let g:jedi#usages_command = ",n"
-"let g:jedi#rename_command = ",r"
-"let g:jedi#show_call_signatures = "0"
-"let g:jedi#completions_command = "<C-Space>"
-"let g:jedi#smart_auto_mappings = 0
+let g:multi_cursor_next_key='<C-n>'
+let g:multi_cursor_prev_key='<C-p>'
+let g:multi_cursor_skip_key='<C-x>'
 
 "" python syntax highlight
 let python_highlight_all = 1
 
-"" slime config
-"let g:slime_target = "tmux"
-"let g:slime_default_config = {"socket_name": get(split($TMUX, ","), 0), "target_pane": ":.2"}
+"" configure yats to highlight host specific keywords
+let g:yats_host_keyword = 1
 
 "" TMUX navigation
 let g:tmux_navigator_no_mappings = 1
@@ -248,6 +185,20 @@ nnoremap <silent> <C-h> :TmuxNavigateLeft<Cr>
 nnoremap <silent> <C-l> :TmuxNavigateRight<Cr>
 "" Disable tmux navigator when zooming the Vim pane
 let g:tmux_navigator_disable_when_zoomed = 1
+
+"" Configuration
+nnoremap <silent> <leader><leader>e :edit ~/.config/nvim/init.vim<CR>
+nnoremap <silent> <leader><leader>r :so ~/.config/nvim/init.vim<CR>
+
+"" ALE
+let g:ale_linters = {}
+let g:ale_fixers = {
+     \   'python': ['black'],
+     \   'javascript': ['eslint'],
+     \}
+let g:ale_fix_on_save = 1
+:call extend(g:ale_linters, {
+    \'python': ['flake8'], 'javascript': ['eslint'] })
 
 ""--- COC-NVIM ---""
 " Set internal encoding of vim, not needed on neovim, since coc.nvim using some
